@@ -35,5 +35,6 @@ Requirements
     matplotlib
     opencv
     python3
+    imageio
 
 Thank you to the Udacity mentors for the learning resources

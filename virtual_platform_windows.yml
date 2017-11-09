@@ -1,0 +1,41 @@
+name: virtual_platform
+channels:
+- menpo
+- conda-forge
+- peterjc123
+- defaults
+dependencies:
+- ffmpeg=3.2.4=1
+- imageio=2.2.0=py35_0
+- pillow=4.2.1=py35_0
+- vc=14=0
+- alabaster=0.7.10=py35_0
+- astroid=1.5.3=py35_0
+- babel=2.5.0=py35_0
+- bleach=1.5.0=py35_0
+- imagesize=0.7.1=py35_0
+- ipykernel=4.6.1=py35_0
+- ipython=6.1.0=py35_0
+- ipython_genutils=0.2.0=py35_0
+- jpeg=9b=vc14_0
+- jsonschema=2.6.0=py35_0
+- jupyter_client=5.1.0=py35_0
+- jupyter_core=4.3.0=py35_0
+- numpy=1.13.1=py35_0
+- pip=9.0.1=py35_1
+- spyder=3.2.3=py35_0
+- zlib=1.2.11=vc14_0
+- opencv3=3.1.0=py35_0
+- python==3.5
+- numpy
+- matplotlib
+- pillow
+- jupyter
+- imageio
+- pip:
+  - ipython-genutils==0.2.0
+  - jupyter-client==5.1.0
+  - jupyter-core==4.3.0
+  - prompt-toolkit==1.0.15
+  - pyyaml==3.12
+  - win-unicode-console==0.5

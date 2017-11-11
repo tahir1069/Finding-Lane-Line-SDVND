@@ -21,6 +21,7 @@ Here are some of the features we can identify on the road in order to find lane 
 •	Orientation 
 
 •	Position in Image
+
 <figure>
  <img src="examples/Original_Image_1.png" width="580" alt="Combined Image" />
  <figcaption>
@@ -40,13 +41,16 @@ For starting point, now Let’s try finding the lane lines using the color. The 
 •	Green 
 
 •	Blue
+
 <figure>
  <img src="examples/RGB Image.png" width="580" alt="Combined Image" />
  <figcaption>
  <p></p> 
  <p style="text-align: center;">RGB Image</p> 
  </figcaption>
+
 The images are sometime called color channels. Each of these color have values from 0-255 where 0 is the darkest possible value and 255 is the brightest possible values. If zero is dark and brightest is 255 than white will be [255,255,255]. Now getting this we define threshold for RGB image for white.
+
 <figure>
  <img src="examples/Color Selection.png" width="580" alt="Combined Image" />
  <figcaption>
@@ -60,13 +64,16 @@ The images are sometime called color channels. Each of these color have values f
 ---
 ***
 Now let’s focus on the region of the image which interests us. Namely the regions where the lane lines are. In this case we can assume the camera is mounted in front of the image and it took the image and region stays the same for every single image taken.
+
 <figure>
  <img src="examples/Masking.png" width="580" alt="Combined Image" />
  <figcaption>
  <p></p> 
  <p style="text-align: center;"> Masking the image to get some region of interest</p> 
 </figcaption>
+
 Now we've seen how to mask out a region of interest in an image. Next, let's combine the mask and color selection to pull only the lane lines out of the image.
+
 <figure>
  <img src="examples/Color Selection and Masking.png" width="580" alt="Combined Image" />
  <figcaption>
@@ -83,12 +90,14 @@ As it happens, lane lines are not always the same color, and even lines of the s
 What we need is to take our algorithm to the next level to detect lines of any color using sophisticated computer vision methods.
 We will be using Python with OpenCV for computer vision work. OpenCV stands for Open-Source Computer Vision. 
 *You can download the files following instructions at the end of this document.
+
 <figure>
  <img src="examples/OpenCV and Python.png" width="580" alt="Combined Image" />
  <figcaption>
  <p></p> 
  <p style="examples/text-align: center;"> </p> 
  </figcaption>
+
 OpenCV contains extensive libraries of functions that you can use. The OpenCV libraries are well documented, so if you’re ever feeling confused about what the parameters in a particular function are doing, or anything else, you can find a wealth of information at opencv.org.
 
 ---
@@ -97,6 +106,7 @@ OpenCV contains extensive libraries of functions that you can use. The OpenCV li
 ---
 ***
 With edge detection our goal is to identify the boundaries of an image. So to do that first we convert to gray scale. And next we compute the gradient. In gradients the brightness of each pixels corresponds to the strength of the gradient at that point we will define edges by tracing out the pixels that follows the strongest gradient. By identifying edges we can even more easily detect object with their shapes.
+
 <figure>
  <img src="examples/Gray_Scale.png" width="580" alt="Combined Image" />
  <figcaption>
@@ -115,6 +125,7 @@ With edge detection our goal is to identify the boundaries of an image. So to do
  <p></p> 
  <p style="text-align: center;"> Gradient Image</p> 
  </figcaption>
+
 ---
 ***
 ## Hough Transform 
@@ -123,6 +134,7 @@ With edge detection our goal is to identify the boundaries of an image. So to do
 After doing edge detection the function gives edges in the form of dots. And these dots represents edges. Now it’s time to connect the dots. We could connect the dots with any kind of shapes in the image. For in this case we are interested in lane lines. To find lines we need to adapt a model of a line to the assortment of dots in our edge detected image keeping in mind image is a mathematical function we can apply equation of line.
 
 y = mx+b
+
 In this case our model have two parameters m and b in image space a line is plotted x vs. y but in parameter space which we will call Hough space. In Hough space we can represent the same line as m vs. b instead. The Hough transform is just conversion from image space to Hough space. So characterization of a single line will be a point at a position m, b in Hough space. 
 so our strategy to find lines in image space will be to find intersecting lines in Hough space we do this by dividing up the Hough space into a grid and define intersecting lines as all lines passing through a given grid cell. To do this first we run canny edge on our image and then finding lines in Hough space on edge detected image 
 
@@ -140,13 +152,16 @@ In this case, we are operating on the image masked edges (the output from Canny)
  <p></p> 
  <p style="text-align: center;"> Hough Transform to detect Lines in Region of Interest </p> 
 </figcaption>
+
 As you can see I've detected lots of line segments. As in above image we have applied our technique to straight solid white lines, but what if we apply these techniques to a segmented lines the output will look some thing like:
+
 <figure>
  <img src="examples/line-segments-example.jpg" width="580" alt="Combined Image" />
  <figcaption>
  <p></p> 
  <p style="text-align: center;"> Hough Transform (Detecting Some Lines in the image)</p> 
  </figcaption> 
+
 ---
 ***
 ## Exttrapolation 
@@ -166,7 +181,6 @@ Extrapolation Algorithm steps:
  <p></p> 
  <p style="text-align: center;"> Extrapolating Hough Lines</p> 
  </figcaption>
- 
  
 ---
 ***
@@ -195,6 +209,7 @@ Ymin = Ymin
 Xmin = (Ymax – Yintercept) / Slope
 
 Ymax = max(Ymax , Ymax-Left-lane)
+
 <figure>
  <img src="examples/solidWhiteRight.jpeg" width="580" alt="Combined Image" />
  <figcaption>

@@ -247,7 +247,7 @@ Congratulations on finding the lane lines! As the final step in this project, we
 * Histogram equalization is also another technique which can be used to increase image contrast.
 * Perform a color selection in the HSV space, instead of doing it in the RGB images
 * Update the ROI mask dynamically
-* Perform a segmentation of the road
+* Applying some better outlier reomver like RANSAC Algorithm
 * If a line is not detected, we could estimate the current slope using the previous estimations and/or the other line detection
 
 ---

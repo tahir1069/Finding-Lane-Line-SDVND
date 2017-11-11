@@ -234,7 +234,7 @@ Congratulations on finding the lane lines! As the final step in this project, we
     * if other vehicles in front are occluding the view
     * if one or more lines are missing
     * at different weather and light condition (fog, rain, or at night).
-    * More robust outlier detector is needed to be implement
+    * Can not work on curves or turns
  
 ---
 ***

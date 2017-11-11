@@ -1,16 +1,4 @@
-Jupyter NotebookLogout WriteUp Last Checkpoint: 16 minutes ago (autosaved) Python [default]
-Python [default] Trusted
-File
-Edit
-View
-Insert
-Cell
-Kernel
-Widgets
-Help
 
-
-5
 # Project: **Finding Lane Lines on the Road** 
 ***
 ## Overview
@@ -36,9 +24,7 @@ Here are some of the features we can identify on the road in order to find lane 
  <p></p> 
  <p style="text-align: center;"> This is a sample image to detect road lines on. </p> 
 </figcaption>
-​
-## Color Selection
- 
+## Color Selection 
 For starting point, now Let’s try finding the lane lines using the color. The lane lines are usually white. To select a color, We actually sees, need to identify what it means in digital image. In digital domain images are made up of stack of three images: 
 ​
 •   Red 
@@ -46,6 +32,7 @@ For starting point, now Let’s try finding the lane lines using the color. The 
 •   Green 
 ​
 •   Blue
+ 
 <figure>
  <img src="examples/RGB Image.png" width="580" alt="Combined Image" />
  <figcaption>
@@ -59,6 +46,7 @@ The images are sometime called color channels. Each of these color have values f
  <p></p> 
  <p style="text-align: center;">RGB Image after Color Thresholding</p> 
  </figcaption>
+ 
 ## Masking
 Now let’s focus on the region of the image which interests us. Namely the regions where the lane lines are. In this case we can assume the camera is mounted in front of the image and it took the image and region stays the same for every single image taken.
 <figure>
@@ -85,7 +73,9 @@ We will be using Python with OpenCV for computer vision work. OpenCV stands for 
  <p></p> 
  <p style="examples/text-align: center;"> </p> 
  </figcaption>
+ 
 OpenCV contains extensive libraries of functions that you can use. The OpenCV libraries are well documented, so if you’re ever feeling confused about what the parameters in a particular function are doing, or anything else, you can find a wealth of information at opencv.org.
+
 ## Edge Detection
 With edge detection our goal is to identify the boundaries of an image. So to do that first we convert to gray scale. And next we compute the gradient. In gradients the brightness of each pixels corresponds to the strength of the gradient at that point we will define edges by tracing out the pixels that follows the strongest gradient. By identifying edges we can even more easily detect object with their shapes.
 <figure>
@@ -106,11 +96,12 @@ With edge detection our goal is to identify the boundaries of an image. So to do
  <p></p> 
  <p style="text-align: center;"> Gradient Image</p> 
  </figcaption>
+ 
 ## Hough Transform
 After doing edge detection the function gives edges in the form of dots. And these dots represents edges. Now it’s time to connect the dots. We could connect the dots with any kind of shapes in the image. For in this case we are interested in lane lines. To find lines we need to adapt a model of a line to the assortment of dots in our edge detected image keeping in mind image is a mathematical function we can apply equation of line.
-​
 
 y = mx+b
+
 In this case our model have two parameters m and b in image space a line is plotted x vs. y but in parameter space which we will call Hough space. In Hough space we can represent the same line as m vs. b instead. The Hough transform is just conversion from image space to Hough space. So characterization of a single line will be a point at a position m, b in Hough space. so our strategy to find lines in image space will be to find intersecting lines in Hough space we do this by dividing up the Hough space into a grid and define intersecting lines as all lines passing through a given grid cell. To do this first we run canny edge on our image and then finding lines in Hough space on edge detected image
 
 In this case, we are operating on the image masked edges (the output from Canny) and the output from HoughLinesP will be lines, which will simply be an array containing the endpoints (x1, y1, x2, y2) of all line segments detected by the transform operation. The other parameters define just what kind of line segments we're looking for.
@@ -125,7 +116,7 @@ As you can see I've detected lots of line segments. As in above image we have ap
 Combined Image
 Hough Transform (Detecting Some Lines in the image)
 
-Extrapolating Lines
+## Extrapolating Lines
 Here we can see our algorithm does not work on segemented lines. To work on these lines we need to change our algorithm a bit. Hough transform gives solid lines as output. Taking these lines we need to design a new pipeline which can extrapolate these solid lines. Now we will apply moving averages technique to extrapolate lines. The figure below shows how this technique works and extrapolates either the right line or left line. Figure below shows how we need to extrapolate lines with their possible extension points. Extrapolation Algorithm steps:
 
 Anchor the bottom of both left and right lanes.
@@ -158,5 +149,28 @@ Ymax = max(Ymax , Ymax-Left-lane)
 Combined Image
 Extrapolating Hough Lines
 
-## Shortcomings
+***
+### Reflections
+---
+***
+Congratulations on finding the lane lines! As the final step in this project, we would like you to share your thoughts on your lane finding pipeline... specifically, how could you imagine making your algorithm better / more robust? Where will your current algorithm be likely to fail? 
 
+---
+   
+***
+### ShortComings 
+---
+***
+* This project works well for straight lines but not for curves or turns.
+* This project also don't work for shadows on the road and also needs to be considered on night and rainy season situations.
+* More robust outlier detector is needed to be implement.
+ 
+---
+***
+## Improvements 
+---
+***
+* To cater shadow or some other situations images can be sharpened so that pixel transitions resulting boarders can easily be detetcted (some high pass filters).
+* instead of canny edge detection sobel edge detector can be used which is alot more robust than canny.
+* Morphology can also be implemented to make the algorithm more robust.
+* Histogram equalization is also another technique which can be used to increase image contrast.

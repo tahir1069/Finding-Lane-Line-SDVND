@@ -9,18 +9,18 @@ When we drive a car, we use our eyes to see on the road. One of the first thing 
 Our job is to teach the car how to drive itself in order to do that we have to teach the car how to perceive the world around it now when we drive we figure out how fast to drive where the lane lines are? And where to turn?  
 The goals steps of this project are the following:
 
-•	Make a pipeline that finds lane lines on the road
+*	Make a pipeline that finds lane lines on the road
 
 A car doesn’t have eyes but in self-driving cars we use cameras and other sensors to achieve a similar function. Now let’s see what the cameras sees around them. We can see the things automatically. So here our goal is to teach the car to identify and track the position of the lane lines in a series of images.
 Here are some of the features we can identify on the road in order to find lane lines on the road: 
 
-•	Color
+*	Color
 
-•	Shape
+*	Shape
 
-•	Orientation 
+*	Orientation 
 
-•	Position in Image
+*	Position in Image
 
 <figure>
  <img src="examples/Original_Image_1.png" width="580" alt="Combined Image" />
@@ -36,11 +36,11 @@ Here are some of the features we can identify on the road in order to find lane 
 *** 
 For starting point, now Let’s try finding the lane lines using the color. The lane lines are usually white. To select a color, We actually sees, need to identify what it means in digital image. In digital domain images are made up of stack of three images: 
 
-•	Red 
+*	Red 
 
-•	Green 
+*	Green 
 
-•	Blue
+*	Blue
 
 <figure>
  <img src="examples/RGB Image.png" width="580" alt="Combined Image" />
